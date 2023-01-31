@@ -18,6 +18,10 @@ public class Casilla {
         this.ancho=ancho;
     }
 
+   /**
+   * Devuelve true si la pulsación táctil está dentro de la casilla actual
+   * @return lugar posición táctil 
+   */
     public boolean dentro(int xx,int yy) {
         if (xx>=this.x && xx<=this.x+ancho && yy>=this.y && yy<=this.y+ancho)
             return true;
