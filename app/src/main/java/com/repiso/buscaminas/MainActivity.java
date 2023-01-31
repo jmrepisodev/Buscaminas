@@ -159,13 +159,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnTouchList
                     //Dibujamos un cuadrado en las coordeandas x, y
                     canvas.drawRect(j * anchoCasilla, filaActual, j * anchoCasilla
                             + anchoCasilla - 2, filaActual + anchoCasilla - 2, paint);
-                    // linea blanca
+                    //Dibuja las líneas separadoras
                     canvas.drawLine(j * anchoCasilla, filaActual, j * anchoCasilla
                             + anchoCasilla, filaActual, paintlinea1);
                     canvas.drawLine(j * anchoCasilla + anchoCasilla - 1, filaActual, j
                                     * anchoCasilla + anchoCasilla - 1, filaActual + anchoCasilla,
                             paintlinea1);
 
+                    //Dibuja el número de bombas del perímetro 
                     if (casillasArray[i][j].contenido >= 1
                             && casillasArray[i][j].contenido <= 8
                             && casillasArray[i][j].destapado)
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnTouchList
                                 String.valueOf(casillasArray[i][j].contenido), j
                                         * anchoCasilla + (anchoCasilla / 2) - 8,
                                 filaActual + anchoCasilla / 2, paint2);
-
+                    //Dibuja las bombas
                     if (casillasArray[i][j].contenido == 80
                             && casillasArray[i][j].destapado) {
                         Paint bomba = new Paint();
@@ -192,19 +193,19 @@ public class MainActivity extends AppCompatActivity  implements View.OnTouchList
      * Dispone las bombas de forma aleatoria sobre el tablero
      */
     private void disponerBombas() {
-        int cantidad = 8;
+        int cantidad = 8; //número de bombas
         do {
             int fila = (int) (Math.random() * 8);
             int columna = (int) (Math.random() * 8);
             if (casillasArray[fila][columna].contenido == 0) {
-                casillasArray[fila][columna].contenido = 80;
+                casillasArray[fila][columna].contenido = 80; // = bomba 
                 cantidad--;
             }
         } while (cantidad != 0);
     }
 
     /**
-     * Verifica si gana la partida
+     * Cuenta las casillas destapadas
      * @return
      */
     private boolean ganar() {
@@ -213,14 +214,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnTouchList
             for (int c = 0; c < 8; c++)
                 if (casillasArray[f][c].destapado)
                     cantidad++;
-        if (cantidad == 56)
+        if (cantidad == 56) //((8×8)-8)
             return true;
         else
             return false;
     }
 
     /**
-     * Cuenta las bomnas del perímetro
+     * Cuenta las bombas del perímetro
      */
     private void contarBombasPerimetro() {
         for (int f = 0; f < 8; f++) {
@@ -233,6 +234,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnTouchList
         }
     }
 
+    //Busca en el perímetro de la casilla si existen casillas con bomba
     int contarCoordenada(int fila, int columna) {
         int total = 0;
         if (fila - 1 >= 0 && columna - 1 >= 0) {
